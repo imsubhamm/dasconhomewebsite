@@ -53,11 +53,11 @@ export function Navbar() {
           <li>
             <a
               href="#contact"
-              className={`rounded-sm px-4 py-2 text-sm font-semibold transition ${
+              className={
                 scrolled
-                  ? 'bg-ink text-paper hover:bg-ink-soft'
-                  : 'bg-paper text-ink hover:bg-stone'
-              }`}
+                  ? 'rounded-sm bg-ink px-4 py-2 text-sm font-semibold text-paper transition hover:bg-ink-soft'
+                  : 'rounded-sm bg-paper px-4 py-2 text-sm font-semibold text-ink transition hover:bg-stone'
+              }
             >
               Start a project
             </a>
