@@ -46,8 +46,8 @@ export function Services() {
             Construction scopes we take from brief to built form.
           </h2>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-stone/80 md:text-lg">
-            One provider for the building types listed on IndiaMART — commercial,
-            residential, industrial, hospitality, retail, and institutional work.
+            Commercial, residential, industrial, hospitality, retail, and
+            institutional work — with material support when the programme needs it.
           </p>
         </Reveal>
 

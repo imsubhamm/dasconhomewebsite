@@ -1,8 +1,6 @@
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
-
-const HERO_IMAGE =
-  'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=2400&q=80'
+import heroImage from '../assets/hero.jpg'
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null)
@@ -25,9 +23,9 @@ export function Hero() {
         style={reduceMotion ? undefined : { y: imageY, scale: imageScale }}
       >
         <img
-          src={HERO_IMAGE}
-          alt="Architectural concrete structure under construction"
-          className="h-full w-full object-cover"
+          src={heroImage}
+          alt="Construction crew at work on an active building site"
+          className="h-full w-full object-cover object-[center_35%]"
           fetchPriority="high"
         />
       </motion.div>

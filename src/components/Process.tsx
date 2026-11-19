@@ -1,3 +1,4 @@
+import processImage from '../assets/process.jpg'
 import { Reveal } from './Reveal'
 
 const steps = [
@@ -44,8 +45,8 @@ export function Process() {
             <Reveal delay={0.16}>
               <figure className="mt-10 overflow-hidden">
                 <img
-                  src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1600&q=80"
-                  alt="Construction team reviewing plans on site"
+                  src={processImage}
+                  alt="Concrete structure under construction with scaffolding"
                   className="aspect-[4/3] w-full object-cover"
                   loading="lazy"
                 />
