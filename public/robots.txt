@@ -1,0 +1,20 @@
+# Dascon Sourav Commercial — crawler access
+# Explicitly allows Google Search and Microsoft Edge (via Bing) crawlers
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: msnbot
+Allow: /
+
+User-agent: *
+Allow: /
+
+# Set absolute Sitemap URL after the production domain is final:
+# Sitemap: https://YOUR-DOMAIN/sitemap.xml
