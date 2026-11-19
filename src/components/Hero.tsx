@@ -59,8 +59,8 @@ export function Hero() {
             transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
           >
             Construction services across commercial, residential, industrial, and
-            institutional projects — delivered from Kolkata with over a decade of
-            field experience.
+            institutional projects — delivered from Kolkata by a company
+            incorporated in 2008.
           </motion.p>
 
           <motion.div

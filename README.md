@@ -37,4 +37,5 @@ Preview also serves on port **4827**.
 ## Notes
 
 - Domain is not final; the UI uses the brand name only (no invented live domain).
-- Company facts are drawn from IndiaMART and public company filings.
+- Company facts: MCA / ZaubaCorp filings (CIN, directors, registered office,
+  incorporation) plus IndiaMART for GST, IEC, and marketed construction services.

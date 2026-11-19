@@ -79,9 +79,17 @@ export function Contact() {
             </div>
             <div>
               <p className="text-xs font-semibold tracking-[0.16em] text-steel uppercase">
-                Owner
+                Directors
               </p>
-              <p className="mt-2 text-base text-ink">Sushanta Kayal</p>
+              <p className="mt-2 text-base leading-relaxed text-ink">
+                Sumanta Das · Suvam Maji · Nilima Maji
+              </p>
+            </div>
+            <div>
+              <p className="text-xs font-semibold tracking-[0.16em] text-steel uppercase">
+                CIN
+              </p>
+              <p className="mt-2 text-base text-ink">U51909WB2008PTC124583</p>
             </div>
           </Reveal>
         </div>

@@ -14,7 +14,8 @@ export function Footer() {
           </p>
         </div>
         <div className="text-sm text-steel md:text-right">
-          <p>GSTIN 19AALCS8129G1ZW · IEC 0215018711</p>
+          <p>CIN U51909WB2008PTC124583</p>
+          <p className="mt-1">GSTIN 19AALCS8129G1ZW · IEC 0215018711</p>
           <p className="mt-1">© {year} Dascon Sourav Commercial Pvt. Ltd.</p>
         </div>
       </div>

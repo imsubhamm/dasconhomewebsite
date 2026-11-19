@@ -1,5 +1,20 @@
 import { Reveal } from './Reveal'
 
+const facts = [
+  { label: 'Legal entity', value: 'Dascon Sourav Commercial Private Limited' },
+  { label: 'CIN', value: 'U51909WB2008PTC124583' },
+  { label: 'Status', value: 'Active · RoC Kolkata' },
+  { label: 'Incorporated', value: '28 March 2008' },
+  { label: 'Registered office', value: 'Kalindi, Kolkata, West Bengal 700048' },
+  {
+    label: 'Directors',
+    value: 'Sumanta Das · Suvam Maji · Nilima Maji',
+  },
+  { label: 'Nature of business', value: 'Construction service provider' },
+  { label: 'GSTIN', value: '19AALCS8129G1ZW' },
+  { label: 'IEC', value: '0215018711' },
+]
+
 export function About() {
   return (
     <section id="about" className="relative overflow-hidden bg-paper py-24 md:py-32">
@@ -16,12 +31,11 @@ export function About() {
           </Reveal>
           <Reveal delay={0.1}>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-steel md:text-lg">
-              Dascon Sourav Commercial Pvt. Ltd. is a construction service
-              provider led by Sushanta Kayal. For roughly fourteen years the firm
-              has supported commercial flat developments, residential buildings,
-              industrial sheds, hotels, malls, schools, and colleges — with
-              related building construction material services when a project needs
-              them.
+              Dascon Sourav Commercial Private Limited is an active private limited
+              company incorporated in 2008 and registered with RoC Kolkata. The
+              firm provides construction services for commercial flats, residential
+              buildings, industrial sheds, hotels, malls, schools, and colleges —
+              with building construction material support when a project needs it.
             </p>
           </Reveal>
           <Reveal delay={0.18}>
@@ -35,15 +49,7 @@ export function About() {
 
         <Reveal delay={0.12} className="self-end">
           <dl className="border-t border-line divide-y divide-line">
-            {[
-              { label: 'Legal entity', value: 'Dascon Sourav Commercial Pvt. Ltd.' },
-              { label: 'Location', value: 'Kolkata, West Bengal' },
-              { label: 'Owner', value: 'Sushanta Kayal' },
-              { label: 'Nature of business', value: 'Service Provider — Construction' },
-              { label: 'GSTIN', value: '19AALCS8129G1ZW' },
-              { label: 'IEC', value: '0215018711' },
-              { label: 'Experience', value: '~14 years in the field' },
-            ].map((row) => (
+            {facts.map((row) => (
               <div
                 key={row.label}
                 className="grid gap-1 py-4 sm:grid-cols-[11rem_1fr] sm:gap-6"
