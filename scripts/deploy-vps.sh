@@ -8,14 +8,14 @@
 # Env overrides:
 #   HOST=ubuntu@32.198.69.78
 #   REMOTE_DIR=/var/www/dascon-home
-#   DOMAIN=dasconsourav.com
+#   DOMAIN=dasconsourav.in
 
 set -euo pipefail
 
 KEY="${1:-$HOME/Downloads/imdascon.pem}"
 HOST="${HOST:-ubuntu@32.198.69.78}"
 REMOTE_DIR="${REMOTE_DIR:-/var/www/dascon-home}"
-DOMAIN="${DOMAIN:-dasconsourav.com}"
+DOMAIN="${DOMAIN:-dasconsourav.in}"
 SITE_NAME="dasconsourav-home"
 
 if [[ ! -f "$KEY" ]]; then

@@ -16,4 +16,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://dasconsourav.com/sitemap.xml
+Sitemap: https://dasconsourav.in/sitemap.xml

@@ -30,7 +30,7 @@ export function Contact() {
       `Name: ${name}\nEmail: ${email}\nProject type: ${project || 'Not specified'}\n\n${message}`,
     )
 
-    window.location.href = `mailto:dscplkolkata@gmail.com?subject=${subject}&body=${body}`
+    window.location.href = `mailto:info@dasconsourav.in?subject=${subject}&body=${body}`
     window.setTimeout(() => {
       setStatus('sent')
       form.reset()
@@ -71,10 +71,10 @@ export function Contact() {
                 Email
               </p>
               <a
-                href="mailto:dscplkolkata@gmail.com"
+                href="mailto:info@dasconsourav.in"
                 className="mt-2 inline-block text-base font-medium text-ink underline-offset-4 hover:underline"
               >
-                dscplkolkata@gmail.com
+                info@dasconsourav.in
               </a>
             </div>
             <div>
