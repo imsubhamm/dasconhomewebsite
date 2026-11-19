@@ -1,40 +1,73 @@
 #!/usr/bin/env bash
-# Deploy the Vite production build to the Dascon VPS.
-# Run from a machine that has the PEM (this cloud VM does not).
+# Safely co-host the marketing site beside dasconsouraverp on the same VPS.
+# Does NOT touch the ERP document root or dasconsouraverp.com vhost.
 #
-# Usage:
+# Usage (from a machine that has the PEM):
 #   ./scripts/deploy-vps.sh ~/Downloads/imdascon.pem
-# Optional:
-#   REMOTE_DIR=/var/www/dascon HOST=ubuntu@32.198.69.78 ./scripts/deploy-vps.sh ~/Downloads/imdascon.pem
+#
+# Env overrides:
+#   HOST=ubuntu@32.198.69.78
+#   REMOTE_DIR=/var/www/dascon-home
+#   DOMAIN=dasconsourav.com
 
 set -euo pipefail
 
 KEY="${1:-$HOME/Downloads/imdascon.pem}"
 HOST="${HOST:-ubuntu@32.198.69.78}"
-REMOTE_DIR="${REMOTE_DIR:-/var/www/dascon}"
+REMOTE_DIR="${REMOTE_DIR:-/var/www/dascon-home}"
+DOMAIN="${DOMAIN:-dasconsourav.com}"
+SITE_NAME="dasconsourav-home"
 
 if [[ ! -f "$KEY" ]]; then
   echo "SSH key not found: $KEY" >&2
+  echo "Attach/upload imdascon.pem or pass its path as the first argument." >&2
   exit 1
 fi
 
 chmod 400 "$KEY"
+SSH=(ssh -i "$KEY" -o StrictHostKeyChecking=accept-new)
+RSYNC_SSH="ssh -i $KEY -o StrictHostKeyChecking=accept-new"
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
-echo "Building…"
+echo "==> Building production assets"
 npm ci
 npm run build
 
-echo "Ensuring remote directory $REMOTE_DIR…"
-ssh -i "$KEY" -o StrictHostKeyChecking=accept-new "$HOST" \
-  "sudo mkdir -p '$REMOTE_DIR' && sudo chown -R ubuntu:ubuntu '$REMOTE_DIR'"
+if [[ ! -f dist/robots.txt ]]; then
+  echo "dist/robots.txt missing — aborting" >&2
+  exit 1
+fi
 
-echo "Uploading dist/…"
-rsync -az --delete -e "ssh -i $KEY -o StrictHostKeyChecking=accept-new" \
-  dist/ "$HOST:$REMOTE_DIR/"
+echo "==> Ensuring isolated docroot $REMOTE_DIR (ERP untouched)"
+"${SSH[@]}" "$HOST" "sudo mkdir -p '$REMOTE_DIR' && sudo chown -R ubuntu:ubuntu '$REMOTE_DIR'"
 
-echo "Checking robots.txt on server…"
-ssh -i "$KEY" "$HOST" "test -f '$REMOTE_DIR/robots.txt' && head -n 5 '$REMOTE_DIR/robots.txt'"
+echo "==> Uploading dist/ → $REMOTE_DIR"
+rsync -az --delete -e "$RSYNC_SSH" dist/ "$HOST:$REMOTE_DIR/"
 
-echo "Done. Point nginx/caddy document root to $REMOTE_DIR (SPA fallback → index.html)."
+echo "==> Installing nginx site (server_name $DOMAIN www.$DOMAIN)"
+scp -i "$KEY" -o StrictHostKeyChecking=accept-new \
+  deploy/nginx-dasconsourav-home.conf \
+  "$HOST:/tmp/${SITE_NAME}.conf"
+
+"${SSH[@]}" "$HOST" bash -s <<REMOTE
+set -euo pipefail
+sudo cp /tmp/${SITE_NAME}.conf /etc/nginx/sites-available/${SITE_NAME}
+sudo ln -sfn /etc/nginx/sites-available/${SITE_NAME} /etc/nginx/sites-enabled/${SITE_NAME}
+sudo nginx -t
+sudo systemctl reload nginx
+echo "nginx reloaded OK"
+# Show that ERP vhost files still exist if present
+ls /etc/nginx/sites-enabled/ 2>/dev/null || true
+REMOTE
+
+echo "==> Verifying marketing files on server"
+"${SSH[@]}" "$HOST" "test -f '$REMOTE_DIR/index.html' && test -f '$REMOTE_DIR/robots.txt' && head -n 8 '$REMOTE_DIR/robots.txt'"
+
+echo
+echo "Deployed files to $REMOTE_DIR with nginx server_name for $DOMAIN."
+echo "Next — DNS + TLS (run once DNS resolves to this VPS):"
+echo "  1. A  @    → 32.198.69.78"
+echo "  2. A  www  → 32.198.69.78"
+echo "  3. ssh -i $KEY $HOST 'sudo certbot --nginx -d $DOMAIN -d www.$DOMAIN'"
+echo "ERP domain dasconsouraverp.com was not modified."

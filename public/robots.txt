@@ -16,5 +16,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-# Set absolute Sitemap URL after the production domain is final:
-# Sitemap: https://YOUR-DOMAIN/sitemap.xml
+Sitemap: https://dasconsourav.com/sitemap.xml
